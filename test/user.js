@@ -13,4 +13,17 @@ describe("Users", () => {
       done(); // keep on waiting until it is done
     });
   });
+
+  // or
+  it("GET/USERS", () => {
+    return request.get(`users?access-token=${Token}`).then((res) => {
+      expect(res.body.data).to.not.be.empty;
+    });
+  });
+  //// get specific user
+  it("get/user/id", () => {
+    return request.get(`users/5899584?access-token=${Token}`).then((res) => {
+      expect(res.body.data.id).to.be.eq(5899584);
+    });
+  });
 });
