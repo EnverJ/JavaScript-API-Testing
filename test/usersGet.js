@@ -22,8 +22,19 @@ describe("Users", () => {
   });
   //// get specific user
   it("get/user/id", () => {
-    return request.get(`users/5899584?access-token=${Token}`).then((res) => {
-      expect(res.body.data.id).to.be.eq(5899584);
+    return request.get(`users/5899542?access-token=${Token}`).then((res) => {
+      expect(res.body.data.id).to.be.eq(5903297);
+    });
+  });
+
+  it("get/user with query params", async () => {
+    const url = `users?access-token=${Token}&page=5&gender=male&status=active`;
+    return await request.get(url).then((res) => {
+      expect(res.body.data).to.not.be.empty;
+      res.body.data.forEach((data) => {
+        expect(data.status).to.eq("active");
+        expect(data.gender).to.eq("male");
+      });
     });
   });
 });
