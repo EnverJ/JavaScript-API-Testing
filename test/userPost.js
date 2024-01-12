@@ -1,18 +1,20 @@
-import supertest from "supertest";
-const request = supertest("https://gorest.co.in/public-api/");
+import request from "../config/common.js";
+import { faker } from "@faker-js/faker";
+import "dotenv/config";
 import { expect } from "chai";
-const token =
-  "Bearer 8d0e570e204d7180ab8fda52300efa4ea770d1eec00ee9f27e6976ef571c48f7";
+const token = process.env.USER_TOKEN;
+const statuses = ["active", "inactive"];
 
 describe("post call", () => {
-  it("Post/user", () => {
+  it("Post/user", async () => {
     const data = {
-      email: `user-${Math.floor(Math.random() * 99999)}@example.com`,
-      name: "Joe Doe",
-      gender: "male",
-      status: "active",
+      //  email: `user-${Math.floor(Math.random() * 99999)}@example.com`,
+      email: faker.internet.email(),
+      name: faker.person.fullName(),
+      gender: faker.person.sex(),
+      status: faker.helpers.arrayElement(statuses),
     };
-    return request
+    return await request
       .post("users")
       .set("Authorization", `${token}`)
       .send(data)
@@ -27,7 +29,8 @@ describe("post call", () => {
 
   it("put/user", () => {
     const data = {
-      name: `Larry-${Math.floor(Math.random() * 99999)}`,
+      //  name: `Larry-${Math.floor(Math.random() * 99999)}`,
+      name: faker.person.fullName(),
       status: "active",
     };
     return request
@@ -44,10 +47,10 @@ describe("post call", () => {
 describe("Negative tests", () => {
   it("410 Authentication Failed", async () => {
     const data = {
-      email: `user-${Math.floor(Math.random() * 99999)}@example.com`,
-      name: "Joe Doe",
-      gender: "male",
-      status: "active",
+      email: faker.internet.email(),
+      name: faker.person.fullName(),
+      gender: faker.person.sex(),
+      status: faker.helpers.arrayElement(statuses),
     };
     return (
       request
@@ -64,10 +67,10 @@ describe("Negative tests", () => {
     );
   });
 
-  it.only("422 validation Failed", async () => {
+  it("422 validation Failed", async () => {
     const data = {
-      email: `user-${Math.floor(Math.random() * 99999)}@example.com`,
-      name: "Joe Doe",
+      email: faker.internet.email(),
+      name: faker.person.fullName(),
     };
     return request
       .post("users")

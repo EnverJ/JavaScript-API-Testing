@@ -1,0 +1,418 @@
+{
+  "stats": {
+    "suites": 5,
+    "tests": 13,
+    "passes": 11,
+    "pending": 0,
+    "failures": 2,
+    "start": "2024-01-12T17:30:20.078Z",
+    "end": "2024-01-12T17:30:31.104Z",
+    "duration": 11026,
+    "testsRegistered": 13,
+    "passPercent": 84.61538461538461,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "f9c04ac0-5f4b-41a0-9f98-d5bbb664add0",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "6bdecf69-e91f-4db8-a402-49887f35fd0a",
+          "title": "User post",
+          "fullFile": "/Users/enverjume/VS/super-API-test/test/asyncPost.js",
+          "file": "/test/asyncPost.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Post/user",
+              "fullTitle": "User post Post/user",
+              "timedOut": false,
+              "duration": 1034,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const data = {\n  email: `user-${Math.floor(Math.random() * 99999)}@example.com`,\n  name: \"Joe Doe\",\n  gender: \"male\",\n  status: \"active\",\n};\nconst res = await request\n  .post(\"users\")\n  .set(\"Authorization\", `${token}`)\n  .send(data)\n  .then(async (res) => {\n    expect(res.body.data).to.deep.include(data);\n    postId = res.body.data.id;\n  });",
+              "err": {},
+              "uuid": "f1f2043c-8fdf-446c-b8da-3981f3cde698",
+              "parentUUID": "6bdecf69-e91f-4db8-a402-49887f35fd0a",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "get user by id",
+              "fullTitle": "User post get user by id",
+              "timedOut": false,
+              "duration": 955,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const res = await request\n  .get(`users/${postId}`)\n  .set(\"Authorization\", `${token}`)\n  .expect(200);\nconsole.log(res.body);",
+              "err": {},
+              "uuid": "b83c6d14-609a-4cde-9ee2-d421b097883c",
+              "parentUUID": "6bdecf69-e91f-4db8-a402-49887f35fd0a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f1f2043c-8fdf-446c-b8da-3981f3cde698",
+            "b83c6d14-609a-4cde-9ee2-d421b097883c"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1989,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 5000
+        },
+        {
+          "uuid": "ef04f155-66f5-43ff-bec9-b9c9bb2e2d6d",
+          "title": "Delete users",
+          "fullFile": "/Users/enverjume/VS/super-API-test/test/userDelete.js",
+          "file": "/test/userDelete.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Post/user",
+              "fullTitle": "Delete users Post/user",
+              "timedOut": false,
+              "duration": 1049,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const data = {\n  email: `user-${Math.floor(Math.random() * 99999)}@example.com`,\n  name: \"Joe Doe\",\n  gender: \"male\",\n  status: \"active\",\n};\nreturn request\n  .post(\"users\")\n  .set(\"Authorization\", `${token}`)\n  .send(data)\n  .then((res) => {\n    console.log(res.body);\n    // data.email = \"rerere@gdgdg.com\";  testing purpose  negative scenario\n    //  expect(res.body.data.email).to.eq(data.email); or\n    expect(res.body.data).to.deep.include(data);\n    userId = res.body.data.id;\n  });",
+              "err": {},
+              "uuid": "759a71ba-bfcd-4620-82dc-ef8e4e48d92c",
+              "parentUUID": "ef04f155-66f5-43ff-bec9-b9c9bb2e2d6d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "user/get",
+              "fullTitle": "Delete users user/get",
+              "timedOut": false,
+              "duration": 1123,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "return request.get(`users/${userId}`);\nset(\"Authorization\", `${token}`).then((res) => {\n  expect(res.body.data).to.not.be.empty;\n  console.log(\"get call\", res.body);\n  expect(res.body.data.id).to.be.eq(`${userId}`);\n});",
+              "err": {},
+              "uuid": "4e643063-4cae-4130-82f2-b3cb141d297c",
+              "parentUUID": "ef04f155-66f5-43ff-bec9-b9c9bb2e2d6d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "user/delete",
+              "fullTitle": "Delete users user/delete",
+              "timedOut": false,
+              "duration": 513,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "return request\n  .delete(`users/${userId}`)\n  .set(\"Authorization\", `${token}`)\n  .then((res) => {\n    expect(res.body.data).to.be.eq(null);\n  });",
+              "err": {},
+              "uuid": "3317f23c-fe82-47da-a202-c67bb8dd95a1",
+              "parentUUID": "ef04f155-66f5-43ff-bec9-b9c9bb2e2d6d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "759a71ba-bfcd-4620-82dc-ef8e4e48d92c",
+            "4e643063-4cae-4130-82f2-b3cb141d297c",
+            "3317f23c-fe82-47da-a202-c67bb8dd95a1"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 2685,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 5000
+        },
+        {
+          "uuid": "65e0b4e9-5923-4525-866f-2113ee8a658d",
+          "title": "post call",
+          "fullFile": "/Users/enverjume/VS/super-API-test/test/userPost.js",
+          "file": "/test/userPost.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Post/user",
+              "fullTitle": "post call Post/user",
+              "timedOut": false,
+              "duration": 981,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const data = {\n  //  email: `user-${Math.floor(Math.random() * 99999)}@example.com`,\n  email: faker.internet.email(),\n  name: faker.person.fullName(),\n  gender: faker.person.sex(),\n  status: faker.helpers.arrayElement(statuses),\n};\nreturn await request\n  .post(\"users\")\n  .set(\"Authorization\", `${token}`)\n  .send(data)\n  .then((res) => {\n    console.log(res.body);\n    // data.email = \"rerere@gdgdg.com\";  testing purpose  negative scenario\n    //  expect(res.body.data.email).to.eq(data.email); or\n    expect(res.body.data).to.deep.include(data);\n  });",
+              "err": {},
+              "uuid": "03691388-5c93-4d6f-be19-3126f1daa77b",
+              "parentUUID": "65e0b4e9-5923-4525-866f-2113ee8a658d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "put/user",
+              "fullTitle": "post call put/user",
+              "timedOut": false,
+              "duration": 967,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const data = {\n  //  name: `Larry-${Math.floor(Math.random() * 99999)}`,\n  name: faker.person.fullName(),\n  status: \"active\",\n};\nreturn request\n  .put(\"users/5903315\")\n  .set(\"Authorization\", `${token}`)\n  .send(data)\n  .then((res) => {\n    console.log(res.body);\n    expect(res.body.data).to.deep.include(data);\n  });",
+              "err": {
+                "message": "AssertionError: expected { message: 'Resource not found' } to have deep property 'name'",
+                "estack": "AssertionError: expected { message: 'Resource not found' } to have deep property 'name'\n    at file:///Users/enverjume/VS/super-API-test/test/userPost.js:42:39\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "85566551-ed7c-4d3e-920d-d3e556becad8",
+              "parentUUID": "65e0b4e9-5923-4525-866f-2113ee8a658d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "03691388-5c93-4d6f-be19-3126f1daa77b"
+          ],
+          "failures": [
+            "85566551-ed7c-4d3e-920d-d3e556becad8"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1948,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 5000
+        },
+        {
+          "uuid": "2d47b626-5a01-4243-8a73-e157afd47edd",
+          "title": "Negative tests",
+          "fullFile": "/Users/enverjume/VS/super-API-test/test/userPost.js",
+          "file": "/test/userPost.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "410 Authentication Failed",
+              "fullTitle": "Negative tests 410 Authentication Failed",
+              "timedOut": false,
+              "duration": 893,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const data = {\n  email: faker.internet.email(),\n  name: faker.person.fullName(),\n  gender: faker.person.sex(),\n  status: faker.helpers.arrayElement(statuses),\n};\nreturn (\n  request\n    .post(\"users\")\n    //   .set(\"Authorization\", `${token}`)\n    .send(data)\n    .then((res) => {\n      console.log(res.body);\n      console.log(res.body);\n      expect(res.body.code).to.eq(401);\n      expect(res.body.data.message).to.eq(\"Authentication failed\");\n    })\n);",
+              "err": {},
+              "uuid": "445a3543-4437-4dac-b29d-cc23d3a8c101",
+              "parentUUID": "2d47b626-5a01-4243-8a73-e157afd47edd",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "422 validation Failed",
+              "fullTitle": "Negative tests 422 validation Failed",
+              "timedOut": false,
+              "duration": 458,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const data = {\n  email: faker.internet.email(),\n  name: faker.person.fullName(),\n};\nreturn request\n  .post(\"users\")\n  .set(\"Authorization\", `${token}`)\n  .send(data)\n  .then((res) => {\n    console.log(res.body);\n    console.log(res.body);\n    expect(res.body.code).to.eq(422);\n    expect(res.body.data[0].field).to.eq(\"gender\");\n    expect(res.body.data[0].message).to.eq(\n      \"can't be blank, can be male of female\"\n    );\n    expect(res.body.data[1].field).to.eq(\"status\");\n    expect(res.body.data[1].message).to.eq(\"can't be blank\");\n  });",
+              "err": {},
+              "uuid": "cb872a00-d2c8-4ffe-be27-e8739a851c86",
+              "parentUUID": "2d47b626-5a01-4243-8a73-e157afd47edd",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "445a3543-4437-4dac-b29d-cc23d3a8c101",
+            "cb872a00-d2c8-4ffe-be27-e8739a851c86"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 1351,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 5000
+        },
+        {
+          "uuid": "9fb13574-8c4c-49ab-98fe-7eaf8b1169ef",
+          "title": "Users",
+          "fullFile": "/Users/enverjume/VS/super-API-test/test/usersGet.js",
+          "file": "/test/usersGet.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "GET/USERS",
+              "fullTitle": "Users GET/USERS",
+              "timedOut": false,
+              "duration": 427,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "request.get(`users?access-token=${Token}`).end((err, res) => {\n  console.log(err);\n  console.log(res.body);\n  console.log(\"test-----------------test\");\n  expect(res.body.data).not.to.be.empty;\n  done(); // keep on waiting until it is done\n});",
+              "err": {},
+              "uuid": "b951124e-b90f-48de-9270-047fa6c52c73",
+              "parentUUID": "9fb13574-8c4c-49ab-98fe-7eaf8b1169ef",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "GET/USERS",
+              "fullTitle": "Users GET/USERS",
+              "timedOut": false,
+              "duration": 1082,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "return request.get(`users?access-token=${Token}`).then((res) => {\n  expect(res.body.data).to.not.be.empty;\n});",
+              "err": {},
+              "uuid": "efd5e494-8ce8-4c37-9b1e-2d167be743a4",
+              "parentUUID": "9fb13574-8c4c-49ab-98fe-7eaf8b1169ef",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "get/user/id",
+              "fullTitle": "Users get/user/id",
+              "timedOut": false,
+              "duration": 1019,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "return request.get(`users/5899542?access-token=${Token}`).then((res) => {\n  expect(res.body.data.id).to.be.eq(5903297);\n});",
+              "err": {
+                "message": "AssertionError: expected undefined to equal 5903297",
+                "estack": "AssertionError: expected undefined to equal 5903297\n    at file:///Users/enverjume/VS/super-API-test/test/usersGet.js:26:38\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                "diff": null
+              },
+              "uuid": "38beedc9-a4bf-4f68-8bc8-62a8dda818b6",
+              "parentUUID": "9fb13574-8c4c-49ab-98fe-7eaf8b1169ef",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "get/user with query params",
+              "fullTitle": "Users get/user with query params",
+              "timedOut": false,
+              "duration": 512,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const url = `users?access-token=${Token}&page=5&gender=male&status=active`;\nreturn await request.get(url).then((res) => {\n  expect(res.body.data).to.not.be.empty;\n  res.body.data.forEach((data) => {\n    expect(data.status).to.eq(\"active\");\n    expect(data.gender).to.eq(\"male\");\n  });\n});",
+              "err": {},
+              "uuid": "0e1abb37-8729-459e-a5b4-f5ee8d52ecaf",
+              "parentUUID": "9fb13574-8c4c-49ab-98fe-7eaf8b1169ef",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b951124e-b90f-48de-9270-047fa6c52c73",
+            "efd5e494-8ce8-4c37-9b1e-2d167be743a4",
+            "0e1abb37-8729-459e-a5b4-f5ee8d52ecaf"
+          ],
+          "failures": [
+            "38beedc9-a4bf-4f68-8bc8-62a8dda818b6"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 3040,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 5000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 5000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": null,
+      "version": "6.2.0"
+    }
+  }
+}
