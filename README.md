@@ -1,4 +1,4 @@
 # JavaScript-API-Testing
-npm installl
+npm install
 run:
 npm test
