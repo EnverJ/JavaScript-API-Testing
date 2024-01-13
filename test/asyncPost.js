@@ -1,8 +1,7 @@
 import supertest from "supertest";
 const request = supertest("https://gorest.co.in/public-api/");
 import { expect } from "chai";
-const token =
-  "Bearer 8d0e570e204d7180ab8fda52300efa4ea770d1eec00ee9f27e6976ef571c48f7";
+const token = process.env.USER_TOKEN;
 
 describe("User post", async () => {
   let postId;
